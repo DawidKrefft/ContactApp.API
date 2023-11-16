@@ -1,6 +1,7 @@
 ﻿using ContactApp.API.Models.DTO;
 using ContactApp.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContactApp.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace ContactApp.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateContactRequestDto request)
         {
             var contact = await contactRepository.CreateAsync(request);
@@ -41,7 +42,7 @@ namespace ContactApp.API.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> EditCategory(
             [FromRoute] int id,
             UpdateContactRequestDto request
@@ -52,7 +53,7 @@ namespace ContactApp.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteContact(int id)
         {
             var result = await contactRepository.DeleteAsync(id);

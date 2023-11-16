@@ -1,6 +1,7 @@
 ﻿using ContactApp.API.Models.DTO;
 using ContactApp.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContactApp.API.Controllers
 {
@@ -29,7 +30,7 @@ namespace ContactApp.API.Controllers
             return Ok("Account created successfully.");
         }
 
-        //[Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer")]
         [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> DeleteAccount([FromRoute] Guid id)
         {
